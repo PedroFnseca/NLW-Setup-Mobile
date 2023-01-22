@@ -117,7 +117,7 @@ export function Habit(){
           {
             isDateInPast && dayInfo?.possibleHabits.length ? (
               <Text className="text-white mt-10 text-center">
-                Você mais editar hábitos de uma data passada
+                Você não pode editar hábitos de uma data passada
               </Text>
             ) : null
           }
