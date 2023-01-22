@@ -28,7 +28,7 @@ export function New(){
         return
       }
 
-      // await api.post('/habits', { title, weekDays})
+      await api.post('/habits', { title, weekDays})
       setTitle('')
       setWeekDays([])
 

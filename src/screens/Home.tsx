@@ -1,10 +1,10 @@
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { View, Text, ScrollView, Alert } from "react-native";
 import { HabitDay, DAY_SIZE } from "../components/HabitDay";
 import { Header } from "../components/Header";
 import { generateDatesFromYearBeginning } from '../utils/generate-dates-from-year-beginning'
 import { api } from "../lib/axios"
-import { useState, useEffect } from 'react'
+import { useState, useCallback } from 'react'
 import { Loading } from "../components/Loading";
 import dayjs from "dayjs";
 
@@ -30,34 +30,8 @@ export function Home(){
     try{
       setIsLoading(true)
 
-      // const response = await api.get('/summary')
-      setSummary([
-        {
-          "id": "ac1b7c41-f2a3-4861-a2b2-5ca04eb1d70b",
-          "date": "2023-01-02T03:00:00.000Z",
-          "completed": 1,
-          "amount": 1
-        },
-        {
-          "id": "c9e1e073-129b-4d31-bfdb-8fa4267a3093",
-          "date": "2023-01-04T03:00:00.000Z",
-          "completed": 2,
-          "amount": 2
-        },
-        {
-          "id": "ab5f65f7-13dd-4cf8-a6ed-428fde753181",
-          "date": "2023-01-06T03:00:00.000Z",
-          "completed": 1,
-          "amount": 1
-        },
-        {
-          "id": "d22e4930-0ec2-426a-a304-ab2c50c33252",
-          "date": "2023-01-21T03:00:00.000Z",
-          "completed": 0,
-          "amount": 2
-        }
-      ])
-
+      const response = await api.get('/summary')
+      setSummary(response.data)
     } catch (error) {
       console.log(error)
       Alert.alert('Ops, Não foi possivel carregar o sumário de datas')
@@ -66,9 +40,9 @@ export function Home(){
     }
   }
 
-  useEffect(() => {
+  useFocusEffect(useCallback(() => {
     fetchData()
-  }, [])
+  }, []))
 
   if(isLoading) {
     return (
