@@ -7,6 +7,7 @@ import { api } from "../lib/axios"
 import { useState, useCallback } from 'react'
 import { Loading } from "../components/Loading";
 import dayjs from "dayjs";
+import Animated, { FadeIn } from "react-native-reanimated";
 
 const weekDays = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S']
 const datesFromYearStart = generateDatesFromYearBeginning()
@@ -54,7 +55,10 @@ export function Home(){
     <View className="flex-1 bg-background px-8 pt-16">
       <Header />
 
-      <View className="flex-row mt-6 mb-1 bg-transparent">
+      <Animated.View 
+        className="flex-row mt-6 mb-1 bg-transparent"
+        entering={FadeIn}
+      >
         {weekDays.map((day, index) => (
           <Text
             key={index}
@@ -64,7 +68,7 @@ export function Home(){
             {day}
           </Text>
         ))}
-      </View>
+      </Animated.View>
 
       <ScrollView
         showsVerticalScrollIndicator={false}
@@ -72,7 +76,10 @@ export function Home(){
       >
        {
         summary && 
-         <View className="flex-row flex-wrap">
+         <Animated.View 
+          className="flex-row flex-wrap"
+          entering={FadeIn}  
+        >
          {
            datesFromYearStart.map((date) => {
            const dayWhithHabit = summary.find(day => {
@@ -104,7 +111,7 @@ export function Home(){
                  />
              ))
          }
-         </View>
+         </Animated.View>
        }
       </ScrollView>
     </View>
